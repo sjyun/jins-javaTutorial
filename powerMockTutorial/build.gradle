@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+ext{
+  javaCompilerExecutable = System.env['JAVA_HOME'] ? System.env['JAVA_home'] + '/bin/javac' : 'javac'	
+}
+
+buildDir = 'build' // 기본값
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+dependencies {
+    compile     'org.slf4j:slf4j-api:1.7.5'
+    testCompile 'junit:junit:4.11'
+    testCompile  fileTree(dir: 'lib', includes: ['*.jar'])
+}
+
+eclipse{
+	classpath{
+		downloadSources = true
+	}
+}
+
+tasks.eclipse.dependsOn cleanEclipse
+
+
